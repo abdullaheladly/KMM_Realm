@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    id("com.android.application")
+    kotlin("android")
 }
 
 android {
@@ -17,9 +17,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.compose.compiler.get()
+        kotlinCompilerExtensionVersion = "1.3.2"
     }
-    packaging {
+    packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -29,20 +29,22 @@ android {
             isMinifyEnabled = false
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
 }
 
 dependencies {
-    implementation(projects.shared)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.compose.material3)
-    implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.tooling)
+    implementation(project(":shared"))
+    implementation("androidx.compose.ui:ui:1.3.0")
+    implementation("androidx.compose.ui:ui-tooling:1.3.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.3.0")
+    implementation("androidx.compose.foundation:foundation:1.3.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.3.0")
+
+    implementation("androidx.compose.material3:material3:1.0.0")
+    implementation("androidx.activity:activity-compose:1.6.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.5.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
+    compileOnly("io.realm.kotlin:library-sync:1.4.0")
 }
+
